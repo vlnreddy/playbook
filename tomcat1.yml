@@ -1,0 +1,19 @@
+--- # Example of Tomcat Installation
+- hosts: server2
+  user: test
+  sudo: yes
+  gather_facts: yes
+  tasks:
+   - name: Remove older version of tomcat
+     file: path=/usr/local/tomcat state=absent
+   - name: Download Tomcat
+     get_url: url=http://redrockdigimark.com/apachemirror/tomcat/tomcat-7/v7.0.75/bin/apache-tomcat-7.0.75.tar.gz  dest=/tmp
+   - name: Create tomcat folder
+     command:  mkdir /usr/local/tomcat
+   - name: Extract archive
+     unarchive: src=/tmp/apache-tomcat-7.0.75.tar.gz dest=/usr/local/tomcat copy=no
+   - name: create tomcat users
+     copy: src=/home/test/playbooks/tomcat-users.xml dest=/usr/local/tomcat/conf/
+   - name: Start Tomcat
+     command: nohup  /usr/local/tomcat/apache-tomcat-7.0.75/bin/startup.sh &
+

@@ -1,0 +1,16 @@
+--- # Webserver
+- hosts: webserver
+  user: test
+  sudo: yes
+  tasks:
+    - name: installing httpd packages
+      yum:  name=httpd state=installed
+      tags:
+          - install
+    - name: copy index.html
+      copy: src=index.html dest=/var/www/html/index.html
+    - name: start httpd service
+      service: name=httpd state=started
+    - debug: msg= "hellow "
+      tags:
+          - always

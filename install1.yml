@@ -1,0 +1,3 @@
+--- #s services
+- name: service httpd start
+  service: name=httpd state=started

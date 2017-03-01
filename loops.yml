@@ -1,0 +1,20 @@
+--- # Webserver
+- hosts: server2
+  user: test
+  sudo: yes
+  vars_prompt:
+        - name: pkg
+          prompt: enter package
+          private: no
+  tasks:
+    - name: installing httpd packages
+      yum:  name={{item}} state=installed
+      with_items:
+           - httpd
+           - curl
+           - telnet
+           - '{{pkg}}'
+    - name: copy index.html
+      copy: src=index.html dest=/var/www/html/index.html
+    - name: start httpd service
+      service: name=httpd state=started

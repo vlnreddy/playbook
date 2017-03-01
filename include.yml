@@ -1,0 +1,7 @@
+--- # Webserver
+- hosts: server2
+  user: test
+  sudo: yes
+  tasks:
+    - include: /home/test/playbooks/rajesh/install.yml
+    - include: /home/test/playbooks/install1.yml
